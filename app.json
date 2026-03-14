@@ -1,0 +1,15 @@
+{
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "小雨课程表",
+    "navigationBarBackgroundColor": "@navBgColor",
+    "navigationBarTextStyle": "@navTxtStyle",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle"
+  },
+  "pageOrientation": "auto"
+}
