@@ -1,4 +1,5 @@
 {
+  "pageOrientation": "auto",
   "navigationBarBackgroundColor": "@navBgColor",
   "navigationBarTextStyle": "@navTxtStyle",
   "backgroundColor": "@bgColor",

@@ -1,19 +1,33 @@
-const DEFAULT_URL = 'https://xykcb.pylin.cn?__ua=xykcb_app/1.0.0%20(MiniApp%3B%20Channel/WeChat)'
-const STORAGE_KEY = 'webview_url'
+const DEFAULT_URL = 'https://xykcb.pylin.cn'
 
 const TITLE_MAP = {
   'zh_CN': '小雨课程表',
   'en': 'Xiaoyu Schedule'
 }
 
+const getTitle = () => {
+  const lang = wx.getSystemInfoSync().language
+  return TITLE_MAP[lang] || TITLE_MAP['zh_CN']
+}
+
 Page({
   onLoad() {
-    const url = wx.getStorageSync(STORAGE_KEY) || DEFAULT_URL
-    wx.setStorageSync(STORAGE_KEY, url)
-    this.setData({ url })
+    this.setData({ url: DEFAULT_URL })
 
-    const lang = wx.getSystemInfoSync().language
-    const title = TITLE_MAP[lang] || TITLE_MAP['zh_CN']
+    const title = getTitle()
     wx.setNavigationBarTitle({ title })
+  },
+
+  onShareAppMessage() {
+    return {
+      title: getTitle(),
+      path: '/pages/index/index'
+    }
+  },
+
+  onShareTimeline() {
+    return {
+      title: getTitle()
+    }
   }
 })
