@@ -1,3 +1,13 @@
+const TITLE_MAP = {
+  zh_CN: '小雨课程表',
+  en: 'Xiaoyu Schedule'
+}
+
+const getTitle = () => {
+  const lang = wx.getSystemInfoSync().language
+  return TITLE_MAP[lang] || TITLE_MAP.zh_CN
+}
+
 const decodeParam = (value) => {
   if (!value) return ''
   try {
@@ -16,55 +26,66 @@ const parseMiniProgramTarget = (target) => {
   return path ? { appId, path } : { appId }
 }
 
+const getRedirectPayload = (options = {}) => ({
+  type: decodeParam(options.type),
+  target: decodeParam(options.target)
+})
+
 Page({
+  data: {
+    type: '',
+    target: ''
+  },
+
   onLoad(options = {}) {
-    const type = decodeParam(options.type)
-    const target = decodeParam(options.target)
+    wx.setNavigationBarTitle({ title: getTitle() })
+
+    const { type, target } = getRedirectPayload(options)
 
     if (!target) {
-      wx.redirectTo({ url: '/pages/index/index' })
+      this.backHome()
       return
     }
 
-    if (type === 'wechat_miniapp') {
-      wx.navigateToMiniProgram({
-        ...parseMiniProgramTarget(target),
-        fail: () => wx.redirectTo({ url: '/pages/index/index' })
-      })
+    if (type === 'wechat_miniapp' || type === 'wechat_link') {
+      this.setData({ type, target })
       return
     }
 
-    if (type === 'wechat_link') {
-      this.openWechatLink(target)
-      return
-    }
+    this.backHome()
+  },
 
-    wx.redirectTo({ url: '/pages/index/index' })
+  backHome() {
+    wx.reLaunch({ url: '/pages/index/index' })
+  },
+
+  openMiniProgram(target) {
+    wx.navigateToMiniProgram({
+      ...parseMiniProgramTarget(target),
+      complete: this.backHome
+    })
   },
 
   openWechatLink(url) {
     if (typeof wx.openOfficialAccountArticle === 'function') {
       wx.openOfficialAccountArticle({
         url,
-        fail: () => this.copyLink(url)
+        complete: this.backHome
       })
       return
     }
 
-    this.copyLink(url)
+    this.backHome()
   },
 
-  copyLink(url) {
-    wx.setClipboardData({
-      data: url,
-      success: () => {
-        wx.showModal({
-          title: '无法打开链接',
-          content: '链接已复制，请在微信中打开。',
-          showCancel: false,
-          complete: () => wx.navigateBack()
-        })
-      }
-    })
+  handleJump() {
+    const { type, target } = this.data
+    if (type === 'wechat_miniapp') {
+      this.openMiniProgram(target)
+      return
+    }
+    if (type === 'wechat_link') {
+      this.openWechatLink(target)
+    }
   }
 })

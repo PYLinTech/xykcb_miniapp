@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": ""
+  "pageOrientation": "auto",
+  "navigationBarBackgroundColor": "@navBgColor",
+  "navigationBarTextStyle": "@navTxtStyle",
+  "backgroundColor": "@bgColor",
+  "backgroundTextStyle": "@bgTxtStyle"
 }

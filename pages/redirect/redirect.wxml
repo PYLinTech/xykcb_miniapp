@@ -1,1 +1,1 @@
-<view></view>
+<button class="jump-button" bindtap="handleJump">继续跳转</button>
