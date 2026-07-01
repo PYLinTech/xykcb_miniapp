@@ -10,9 +10,18 @@ const getTitle = () => {
   return TITLE_MAP[lang] || TITLE_MAP['zh_CN']
 }
 
+const decodeParam = (value) => {
+  if (!value) return ''
+  try {
+    return decodeURIComponent(value)
+  } catch (e) {
+    return ''
+  }
+}
+
 Page({
-  onLoad() {
-    this.setData({ url: DEFAULT_URL })
+  onLoad(options = {}) {
+    this.setData({ url: decodeParam(options.url) || DEFAULT_URL })
 
     const title = getTitle()
     wx.setNavigationBarTitle({ title })

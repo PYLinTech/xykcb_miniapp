@@ -2,7 +2,8 @@
   "darkmode": true,
   "themeLocation": "theme.json",
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/redirect/redirect"
   ],
   "window": {
     "navigationBarTitleText": "小雨课程表",
