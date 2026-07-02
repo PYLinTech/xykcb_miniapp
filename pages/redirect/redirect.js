@@ -89,7 +89,7 @@ Page({
     this.isLanguageSwitching = true
     const lang = setCurrentLanguage(target)
     applyNavigationBarTitle(lang)
-    this.setData({ message: getLanguageText('switching', lang) }, () => applyNavigationBarTitle(lang))
+    this.setData({ message: getLanguageText('changingLanguage', lang) }, () => applyNavigationBarTitle(lang))
     this.delayRun(() => this.backPrevious(), SWITCH_BACK_DELAY)
   },
 
