@@ -6,13 +6,17 @@ const LANGUAGE_MAP = {
     title: '小雨课程表',
     jumpButton: '继续跳转',
     switching: '正在切换...',
-    clearing: '正在清理...'
+    clearing: '正在清理...',
+    changingTheme: '正在切换主题...',
+    changingColor: '正在切换颜色...'
   },
   en: {
     title: 'Xiaoyu Schedule',
     jumpButton: 'Continue',
     switching: 'Switching...',
-    clearing: 'Clearing...'
+    clearing: 'Clearing...',
+    changingTheme: 'Changing theme...',
+    changingColor: 'Changing color...'
   }
 }
 

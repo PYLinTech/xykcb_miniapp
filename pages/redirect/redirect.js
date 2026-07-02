@@ -96,12 +96,14 @@ Page({
   handleThemeSwitch(target) {
     const theme = setCurrentTheme(target)
     applyTheme(theme)
-    this.backPrevious()
+    this.setData({ message: getLanguageText('changingTheme') })
+    this.delayRun(() => this.backPrevious(), SWITCH_BACK_DELAY)
   },
 
   handleColorSwitch(target) {
     setCurrentColor(target)
-    this.backPrevious()
+    this.setData({ message: getLanguageText('changingColor') })
+    this.delayRun(() => this.backPrevious(), SWITCH_BACK_DELAY)
   },
 
   handleClearDataAndExit() {
