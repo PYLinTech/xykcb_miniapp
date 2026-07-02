@@ -1,12 +1,4 @@
-const TITLE_MAP = {
-  zh_CN: '小雨课程表',
-  en: 'Xiaoyu Schedule'
-}
-
-const getTitle = () => {
-  const lang = wx.getSystemInfoSync().language
-  return TITLE_MAP[lang] || TITLE_MAP.zh_CN
-}
+const { setCurrentLanguage, getLanguageText, applyNavigationBarTitle } = require('../../utils/language')
 
 const decodeParam = (value) => {
   if (!value) return ''
@@ -34,11 +26,13 @@ const getRedirectPayload = (options = {}) => ({
 Page({
   data: {
     type: '',
-    target: ''
+    target: '',
+    visible: false,
+    jumpButtonText: getLanguageText('jumpButton')
   },
 
   onLoad(options = {}) {
-    wx.setNavigationBarTitle({ title: getTitle() })
+    applyNavigationBarTitle()
 
     const { type, target } = getRedirectPayload(options)
 
@@ -47,8 +41,15 @@ Page({
       return
     }
 
+    if (type === 'language') {
+      setCurrentLanguage(target)
+      applyNavigationBarTitle()
+      this.setData({ jumpButtonText: getLanguageText('jumpButton') })
+      return
+    }
+
     if (type === 'wechat_miniapp' || type === 'wechat_link') {
-      this.setData({ type, target })
+      this.setData({ type, target, visible: true, jumpButtonText: getLanguageText('jumpButton') })
       return
     }
 

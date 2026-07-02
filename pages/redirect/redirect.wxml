@@ -1,1 +1,1 @@
-<button class="jump-button" bindtap="handleJump">继续跳转</button>
+<button wx:if="{{visible}}" class="jump-button" bindtap="handleJump">{{jumpButtonText}}</button>
