@@ -1,3 +1,9 @@
+const { applyNavigationBarTitle } = require('./utils/language')
+const { applyTheme } = require('./utils/theme')
+
 App({
-  onLaunch() {}
+  onLaunch() {
+    applyTheme()
+    applyNavigationBarTitle()
+  }
 })

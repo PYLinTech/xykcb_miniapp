@@ -4,11 +4,15 @@ const DEFAULT_LANGUAGE = 'zh-cn'
 const LANGUAGE_MAP = {
   'zh-cn': {
     title: '小雨课程表',
-    jumpButton: '继续跳转'
+    jumpButton: '继续跳转',
+    switching: '正在切换...',
+    clearing: '正在清理...'
   },
   en: {
     title: 'Xiaoyu Schedule',
-    jumpButton: 'Continue'
+    jumpButton: 'Continue',
+    switching: 'Switching...',
+    clearing: 'Clearing...'
   }
 }
 
@@ -25,20 +29,20 @@ const setCurrentLanguage = (value) => {
   return lang
 }
 
-const getLanguageText = (key) => {
-  const lang = getCurrentLanguage()
+const getLanguageText = (key, value) => {
+  const lang = value ? normalizeLanguage(value) : getCurrentLanguage()
   return LANGUAGE_MAP[lang][key] || LANGUAGE_MAP[DEFAULT_LANGUAGE][key] || ''
 }
 
-const getTitle = () => getLanguageText('title')
+const getTitle = (value) => getLanguageText('title', value)
 
-const applyNavigationBarTitle = () => {
-  wx.setNavigationBarTitle({ title: getTitle() })
+const applyNavigationBarTitle = (value) => {
+  if (typeof wx.setNavigationBarTitle === 'function') {
+    wx.setNavigationBarTitle({ title: getTitle(value) })
+  }
 }
 
 module.exports = {
-  STORAGE_KEY,
-  getCurrentLanguage,
   setCurrentLanguage,
   getLanguageText,
   getTitle,

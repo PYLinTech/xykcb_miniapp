@@ -1,11 +1,31 @@
 page {
   min-height: 100vh;
   box-sizing: border-box;
+  background: transparent;
+}
+
+.switching-page,
+.redirect-page {
+  min-height: 100vh;
+  box-sizing: border-box;
   padding: 32rpx;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.switching-page {
+  background: transparent;
+}
+
+.redirect-page {
   background: #f7f7f7;
+}
+
+.switching-text {
+  color: #191919;
+  font-size: 42rpx;
+  font-weight: 600;
 }
 
 .jump-button {
@@ -16,13 +36,11 @@ page {
   padding: 0;
   border-radius: 18rpx;
   border: 0;
-  background: #00C29C;
   color: #ffffff;
   font-size: 32rpx;
   font-weight: 500;
   line-height: 88rpx;
   letter-spacing: 1rpx;
-  box-shadow: 0 12rpx 28rpx rgba(0, 194, 156, 0.22);
 }
 
 .jump-button::after {
@@ -34,12 +52,11 @@ page {
 }
 
 @media (prefers-color-scheme: dark) {
-  page {
+  .redirect-page {
     background: #1e1e1e;
   }
 
-  .jump-button {
-    background: #00C29C;
-    box-shadow: 0 12rpx 28rpx rgba(0, 194, 156, 0.24);
+  .switching-text {
+    color: #f2f2f2;
   }
 }
